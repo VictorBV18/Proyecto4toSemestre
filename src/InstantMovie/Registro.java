@@ -33,7 +33,7 @@ public class Registro extends JFrame {
     }
     
 
-    public void COMPONENTES() {
+    private void COMPONENTES() {
         PANEL();
         BOTONES();
         CAJAS();
@@ -261,6 +261,7 @@ public class Registro extends JFrame {
         correo.setBorder(null);
         correo.setText("Ej. picapiedrapedro19@gmail.com ");
         correo.setFont(new Font("Eras Bold ITC", 1, 15));
+        correo.getText();
         panel.add(correo);
 
         //Caja Contraseña
@@ -283,6 +284,7 @@ public class Registro extends JFrame {
         tel.setBorder(null);
         tel.setText("  Ej. 5610710491 ");
         tel.setFont(new Font("Eras Bold ITC", 1, 15));
+        tel.getText();
         panel.add(tel);
         
         

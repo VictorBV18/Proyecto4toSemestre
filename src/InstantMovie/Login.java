@@ -175,6 +175,7 @@ public class Login extends JFrame {
         nombre.setBorder(null);
         nombre.setText("Ingrese su correo");
         nombre.setFont(new Font("Eras Bold ITC", 1, 15));
+        nombre.getText();
         panel.add(nombre);
 
         //Caja de texto de contraseña
