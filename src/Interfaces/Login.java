@@ -1,5 +1,7 @@
-package InstantMovie;
+package Interfaces;
 
+import Connexion.Conexionmysql;
+import com.mysql.jdbc.Connection;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -14,13 +16,17 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 public class Login extends JFrame {
 //PANEL PRINCIPAL
-
+    Conexionmysql con=new Conexionmysql();
+    Connection cn=(Connection) con.conectar();
+    JTextField nombre;
+    JPasswordField contraseña;
     public Login() {
         this.setSize(900, 600);
         setLocationRelativeTo(null);
@@ -167,28 +173,28 @@ public class Login extends JFrame {
     public void CAJAS() {
 
         //Caja de texto de nombre
-        JTextField nombre = new JTextField();
+        nombre = new JTextField();
         nombre.setBounds(423, 245, 330, 30);
         nombre.setForeground(Color.gray);
         nombre.setBackground(new Color(82, 182, 154));
         nombre.setOpaque(true);
         nombre.setBorder(null);
-        nombre.setText("Ingrese su correo");
+        nombre.setToolTipText("Ingrese su correo");
         nombre.setFont(new Font("Eras Bold ITC", 1, 15));
         nombre.getText();
         panel.add(nombre);
 
         //Caja de texto de contraseña
-        JTextField contraseña = new JTextField();
-
+        
+        contraseña =new JPasswordField();
+        contraseña.setToolTipText("Ingrese su contraseña");
         contraseña.setBounds(420, 379, 330, 30);
         contraseña.setForeground(Color.gray);
         contraseña.setBackground(new Color(82, 182, 154));
         contraseña.setOpaque(true);
         contraseña.setBorder(null);
-        contraseña.setText("***********************");
         contraseña.setFont(new Font("Eras Bold ITC", 1, 15));
-
+        contraseña.getText();
         panel.add(contraseña);
 
         //Caja de texto 
@@ -210,7 +216,16 @@ public class Login extends JFrame {
         login.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
-
+                
+               /* String name= nombre.getText();
+                String pass=contraseña.getText();
+                if(!name.equals("")||!pass.equals("")){
+                    try {
+                        PreparedStatement ps=cn.prepareStatement(pass)
+                    } catch (Exception e) {
+                    }
+                
+                }*/
                 InterfazCine Cin = new InterfazCine();
                 Cin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 Cin.setVisible(true);

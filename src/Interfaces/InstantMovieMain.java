@@ -1,5 +1,5 @@
 
-package InstantMovie;
+package Interfaces;
 
 public class InstantMovieMain {
     

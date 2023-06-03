@@ -1,5 +1,5 @@
 
-package InstantMovie;
+package Interfaces;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
-//@Betterlee
+
 
 public class InterfazCine extends JFrame {
         
