@@ -1,7 +1,9 @@
 package Interfaces;
 
+import java.sql.*;
 import Connexion.Conexionmysql;
 import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.PreparedStatement;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -10,11 +12,13 @@ import static java.awt.Frame.HAND_CURSOR;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -217,21 +221,33 @@ public class Login extends JFrame {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 
-               /* String name= nombre.getText();
+                String name= nombre.getText();
                 String pass=contraseña.getText();
                 if(!name.equals("")||!pass.equals("")){
                     try {
-                        PreparedStatement ps=cn.prepareStatement(pass)
-                    } catch (Exception e) {
-                    }
-                
-                }*/
-                InterfazCine Cin = new InterfazCine();
-                Cin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                Cin.setVisible(true);
+                        PreparedStatement ps=(PreparedStatement) cn.prepareStatement("SELECT * FROM cliente WHERE correocliente='"+name+"' AND contracliente='"+pass+"'");
+                        ResultSet rs=ps.executeQuery();
+                        if(rs.next()){
+                            
+                        InterfazCine Cin = new InterfazCine();
+                        Cin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                        Cin.setVisible(true);
 
                 
-                setVisible(false);
+                        setVisible(false);
+                        
+                        }else{
+                            JOptionPane.showMessageDialog(null, "USUARIO O CONTRASEÑA INCORRECTO");
+                        
+                        }
+                    } catch (Exception e) {
+                        JOptionPane.showMessageDialog(null, "ERROR AL INICIAR SESION");
+                    }}
+                else{
+                        JOptionPane.showMessageDialog(null, "DEBES COMPLETAR LOS CAMPOS");
+                
+                }
+               
 
             }
         });
