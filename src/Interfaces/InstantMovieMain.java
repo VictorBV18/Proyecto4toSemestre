@@ -8,5 +8,6 @@ public class InstantMovieMain {
          Login L= new Login();
         L.setVisible(true);     
         
+        
     }
 }

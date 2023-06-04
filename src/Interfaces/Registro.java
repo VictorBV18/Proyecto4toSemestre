@@ -1,7 +1,5 @@
 package Interfaces;
 
-
-
 import Connexion.Conexionmysql;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
@@ -27,14 +25,13 @@ import javax.swing.SwingConstants;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 public class Registro extends JFrame {
-        Connexion.Conexionmysql con =new  Conexionmysql();
-        Connection cn=(Connection) con.conectar();
-        
-    
-    
+
+    Connexion.Conexionmysql con = new Conexionmysql();
+    Connection cn = (Connection) con.conectar();
+
     //declaracion variables
-    private JTextField nombre, apellido, correo,contra;
-    private JButton registro1, admin;
+    private JTextField nombre, apellido, correo, contra;
+    private JButton registro1, admin, regreso;
     public JPanel panel;
     private JLabel fond1, fond2, etiqueta1, etiqueta2, etiqueta3, etiqueta4, etiqueta5, etiqueta6, etiqueta7, etiqueta8, etiqueta9, etiqueta10, etiqueta11;
     private JFormattedTextField tel;
@@ -55,7 +52,7 @@ public class Registro extends JFrame {
         BOTONES();
         CAJAS();
         LETRAS();
-        IMAGEN();
+        //IMAGEN();
         ETIQUETAS();
 
     }
@@ -218,7 +215,7 @@ public class Registro extends JFrame {
         nombre.setBorder(null);
         nombre.setFont(new Font("Eras Bold ITC", 1, 15));
         nombre.getText();
-        
+
         panel.add(nombre);
 
         //Caja Apellido
@@ -241,7 +238,7 @@ public class Registro extends JFrame {
         correo.setBackground(new Color(181, 228, 140));
         correo.setOpaque(true);
         correo.setBorder(null);
-        
+
         correo.setFont(new Font("Eras Bold ITC", 1, 15));
         correo.getText();
         panel.add(correo);
@@ -287,57 +284,135 @@ public class Registro extends JFrame {
 
             public void actionPerformed(ActionEvent arg0) {
                 String registro1;
-                String name=nombre.getText();
-                String apell=apellido.getText();
-                String email=correo.getText();
-                String contraseña=contra.getText();
-                String telefono=tel.getText();
-               if(name.isEmpty()||apell.isEmpty()||email.isEmpty()||contraseña.isEmpty()||telefono.isEmpty()){
-               JOptionPane.showMessageDialog(null, "COMPLETA TODO EL REGISTRO");
-               }else{
-                   try {
-                       String consulta="INSERT INTO cliente (nombrecliente,apellcliente,telcliente,correocliente,contracliente)VALUES('"+name+"','"+apell+"','"+telefono+"','"+email+"','"+contraseña+"');";
-                       PreparedStatement ps=(PreparedStatement) cn.prepareStatement(consulta);
-                       ps.executeUpdate();
-                       limpiar();
-                       JOptionPane.showMessageDialog(null, "SE GUARDO EL REGISTRO");
-                   } catch (Exception e) {
-                       JOptionPane.showMessageDialog(null, "NO SE GUARDO EL REGISTRO");
-                   }
-               
-               }
-               
+                String name = nombre.getText();
+                String apell = apellido.getText();
+                String email = correo.getText();
+                String contraseña = contra.getText();
+                String telefono = tel.getText();
+                if (name.isEmpty() || apell.isEmpty() || email.isEmpty() || contraseña.isEmpty() || telefono.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "COMPLETA TODO EL REGISTRO");
+                } else {
+                    try {
+                        String consulta = "INSERT INTO cliente (nombrecliente,apellcliente,telcliente,correocliente,contracliente)VALUES('" + name + "','" + apell + "','" + telefono + "','" + email + "','" + contraseña + "');";
+                        PreparedStatement ps = (PreparedStatement) cn.prepareStatement(consulta);
+                        ps.executeUpdate();
+                        limpiar();
+                        JOptionPane.showMessageDialog(null, "SE GUARDO EL REGISTRO");
+                    } catch (Exception e) {
+                        JOptionPane.showMessageDialog(null, "NO SE GUARDO EL REGISTRO");
+                    }
+
+                }
+
                 Login l = new Login();
                 l.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 l.setVisible(true);
 
                 setVisible(false);
 
-              
-
-               
             }
-            void limpiar(){
-            nombre.setText("");
-            apellido.setText("");
-            correo.setText("");
-            contra.setText("");
-            tel.setText("");            
+
+            void limpiar() {
+                nombre.setText("");
+                apellido.setText("");
+                correo.setText("");
+                contra.setText("");
+                tel.setText("");
             }
 
         });
-        
-        admin =new JButton("ADMIN");
-        admin.setBounds(55, 580, 120, 30);
-        admin.setForeground(Color.WHITE);
-        admin.setHorizontalAlignment(SwingConstants.CENTER);
-        admin.setBackground(Color.BLACK);
-        admin.setOpaque(true);
-        admin.setFont(new Font("Copperplate Gothic Bold", 1, 10));
-        admin.setCursor(new Cursor(HAND_CURSOR));
-        
-        
-        
+
+        //BOTON REGRESAR--------------------------------
+        regreso = new JButton("REGRESAR");
+        regreso.setBounds(55, 580, 120, 30);
+        regreso.setForeground(Color.WHITE);
+        regreso.setHorizontalAlignment(SwingConstants.CENTER);
+        regreso.setBackground(Color.BLACK);
+        regreso.setOpaque(true);
+        regreso.setFont(new Font("Copperplate Gothic Bold", 1, 10));
+        regreso.setCursor(new Cursor(HAND_CURSOR));
+        regreso.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+
+                Login l = new Login();
+                l.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                l.setVisible(true);
+
+                setVisible(false);
+
+            }
+        });
+
+        panel.add(regreso);
+
+        //BOTON DE ADMINSTRADOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOR-------------------------------
+        admin = new JButton();
+        admin.setBounds(360, 520, 120, 120);
+        ImageIcon botoncito = new ImageIcon("t-rex1.png");
+        admin.setIcon(new ImageIcon(botoncito.getImage().getScaledInstance(admin.getWidth(), admin.getHeight(), Image.SCALE_SMOOTH)));
+        admin.setBackground(new Color(181, 228, 140));
+        admin.addActionListener(new ActionListener() {
+            @Override
+
+            public void actionPerformed(ActionEvent arg0) {
+                String name = nombre.getText();
+                String apell = apellido.getText();
+                String email = correo.getText();
+                String contr = contra.getText();
+                String tele = tel.getText();
+                String us = "Admin1";
+                String pas = "1826";
+                if (name.isEmpty() || apell.isEmpty() || email.isEmpty() || contr.isEmpty() || tele.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "COMPLETA TODO EL REGISTRO");
+                } else {
+
+                    JOptionPane.showMessageDialog(null, "REGISTRAR UN NUEVO EMPLEADO \n");
+                    String nombre = JOptionPane.showInputDialog("Ingresa el usuario");
+                    String key = JOptionPane.showInputDialog("Ingresa la contraseña");
+                    if (us.equals(nombre)) {
+                        if (pas.equals(key)) {
+
+                            try {
+                                String consulta = "INSERT INTO usuario (nombre,apellido,correo,contraseña,telefono)VALUES('" + name + "','" + apell + "','" + email + "','" + contr + "','" + tele + "');";
+                                PreparedStatement ps = (PreparedStatement) cn.prepareStatement(consulta);
+                                ps.executeUpdate();
+                                limpiar();
+                                JOptionPane.showMessageDialog(null, "Bienvenido a la explotacion laboral");
+
+                            } catch (Exception e) {
+                                JOptionPane.showMessageDialog(null, "NO SE GUARDO EL REGISTRO");
+                            }
+
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Esa no es la contraseña, checate vato :)");
+
+                        }
+
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No eres admin papito, picate la cola.");
+
+                    }
+
+                }
+
+                Login l = new Login();
+                l.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                l.setVisible(true);
+
+                setVisible(false);
+            }
+
+            void limpiar() {
+                nombre.setText("");
+                apellido.setText("");
+                correo.setText("");
+                contra.setText("");
+                tel.setText("");
+            }
+
+        });
+
         panel.add(admin);
         panel.add(registro1);
     }

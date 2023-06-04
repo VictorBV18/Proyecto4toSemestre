@@ -27,10 +27,12 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 public class Login extends JFrame {
 //PANEL PRINCIPAL
-    Conexionmysql con=new Conexionmysql();
-    Connection cn=(Connection) con.conectar();
+
+    Conexionmysql con = new Conexionmysql();
+    Connection cn = (Connection) con.conectar();
     JTextField nombre;
     JPasswordField contraseña;
+
     public Login() {
         this.setSize(900, 600);
         setLocationRelativeTo(null);
@@ -189,8 +191,7 @@ public class Login extends JFrame {
         panel.add(nombre);
 
         //Caja de texto de contraseña
-        
-        contraseña =new JPasswordField();
+        contraseña = new JPasswordField();
         contraseña.setToolTipText("Ingrese su contraseña");
         contraseña.setBounds(420, 379, 330, 30);
         contraseña.setForeground(Color.gray);
@@ -208,7 +209,7 @@ public class Login extends JFrame {
 
         //BOTON de ingresar de el usuario
         JButton login = new JButton();
-        login.setBounds(500, 440, 120, 40);
+        login.setBounds(400, 440, 120, 40);
         login.setText("ENTRAR");
         login.setForeground(Color.BLACK);
         login.setHorizontalAlignment(SwingConstants.CENTER);
@@ -216,38 +217,36 @@ public class Login extends JFrame {
         login.setOpaque(true);
         login.setFont(new Font("Copperplate Gothic Bold", 1, 15));
         login.setCursor(new Cursor(HAND_CURSOR));
-        
+
         login.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                
-                String name= nombre.getText();
-                String pass=contraseña.getText();
-                if(!name.equals("")||!pass.equals("")){
-                    try {
-                        PreparedStatement ps=(PreparedStatement) cn.prepareStatement("SELECT * FROM cliente WHERE correocliente='"+name+"' AND contracliente='"+pass+"'");
-                        ResultSet rs=ps.executeQuery();
-                        if(rs.next()){
-                            
-                        InterfazCine Cin = new InterfazCine();
-                        Cin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                        Cin.setVisible(true);
 
-                
-                        setVisible(false);
-                        
-                        }else{
+                String name = nombre.getText();
+                String pass = contraseña.getText();
+                if (!name.equals("") || !pass.equals("")) {
+                    try {
+                        PreparedStatement ps = (PreparedStatement) cn.prepareStatement("SELECT * FROM cliente WHERE correocliente='" + name + "' AND contracliente='" + pass + "'");
+                        ResultSet rs = ps.executeQuery();
+                        if (rs.next()) {
+
+                            InterfazCine Cin = new InterfazCine();
+                            Cin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                            Cin.setVisible(true);
+
+                            setVisible(false);
+
+                        } else {
                             JOptionPane.showMessageDialog(null, "USUARIO O CONTRASEÑA INCORRECTO");
-                        
+
                         }
                     } catch (Exception e) {
                         JOptionPane.showMessageDialog(null, "ERROR AL INICIAR SESION");
-                    }}
-                else{
-                        JOptionPane.showMessageDialog(null, "DEBES COMPLETAR LOS CAMPOS");
-                
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "DEBES COMPLETAR LOS CAMPOS");
+
                 }
-               
 
             }
         });
@@ -255,7 +254,7 @@ public class Login extends JFrame {
 
         //Boton de registro del usuario
         JButton registro2 = new JButton();
-        registro2.setBounds(710, 510, 125, 40);
+        registro2.setBounds(600, 440, 129, 40);
         registro2.setText("REGISTRATE");
         registro2.setForeground(Color.BLACK);
         registro2.setHorizontalAlignment(SwingConstants.CENTER);
@@ -277,6 +276,51 @@ public class Login extends JFrame {
             }
         });
         panel.add(registro2);
+
+        //BOTON ADMINISTRADOOOOOOOOOOOOOOOOOOOR.
+        JButton adminb = new JButton();
+        adminb.setBounds(750, 500, 125, 30);
+        adminb.setText("ADMIN");
+        adminb.setForeground(Color.WHITE);
+        adminb.setHorizontalAlignment(SwingConstants.CENTER);
+        adminb.setBackground(Color.BLACK);
+        adminb.setOpaque(true);
+        adminb.setFont(new Font("Copperplate Gothic Bold", 1, 10));
+        adminb.setCursor(new Cursor(HAND_CURSOR));
+
+        adminb.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+
+                String name = nombre.getText();
+                String pass = contraseña.getText();
+                if (!name.equals("") || !pass.equals("")) {
+                    try {
+                        PreparedStatement ps = (PreparedStatement) cn.prepareStatement("SELECT * FROM usuario WHERE correo='" + name + "' AND contraseña='" + pass + "'");
+                        ResultSet rs = ps.executeQuery();
+                        if (rs.next()) {
+
+                            InterfazAdmin IA = new InterfazAdmin();
+                            IA.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                            IA.setVisible(true);
+
+                            setVisible(false);
+
+                        } else {
+                            JOptionPane.showMessageDialog(null, "USUARIO O CONTRASEÑA INCORRECTO");
+
+                        }
+                    } catch (Exception e) {
+                        JOptionPane.showMessageDialog(null, "ERROR AL INICIAR SESION");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "DEBES COMPLETAR LOS CAMPOS");
+
+                }
+
+            }
+        });
+        panel.add(adminb);
 
     }
 
